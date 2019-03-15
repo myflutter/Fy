@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './dio/httpUtil.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,10 +25,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  Future _incrementCounter() async{
+    String url = '/novelApi';
+    var response=await HttpUtil().get(url);
+    print(response);
+    
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './dio/httpUtil.dart';
+import './drawer/drawer.dart';
 import './dynamic/dynamic.dart';
 import './members/members.dart';
 import './familyRule/familyRule.dart';
@@ -27,15 +28,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
-  int _counter = 0;
   int _selectedIndex= 0;
   TabController _tabController;
-  Future _incrementCounter() async{
-    String url = '/novelApi';
-    var response=await HttpUtil().get(url);
-    print(response);
+  // Future _incrementCounter() async{
+  //   String url = '/novelApi';
+  //   var response=await HttpUtil().get(url);
+  //   print(response);
     
-  }
+  // }
   _tapItem(index) {
     setState(() {
      _selectedIndex =index; 
@@ -76,23 +76,27 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Builder(builder: (context) {
+          return IconButton(
+            icon: Icon(Icons.dashboard,color: Colors.white,),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          );
+        },),
         title: Text(widget.title),
         centerTitle: true,
         bottom: _selectedIndex==0? TabBar(
           controller: _tabController,
           tabs: <Widget>[
-            new Tab(text: '动态'),
+            new Tab(text: '家动态'),
             new Tab(text: '家视频'),
             new Tab(text: '家图片'),
           ],
         ):null,
       ),
+      drawer: new MyDrawer(),
       body: _currentPage(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
       bottomNavigationBar: BottomNavigationBar(
         items:  <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('家态')),

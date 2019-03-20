@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import './dio/httpUtil.dart';
+import './dynamic/dynamic.dart';
+import './members/members.dart';
+import './familyRule/familyRule.dart';
 
-void main() {
-  return runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -40,6 +41,32 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
      _selectedIndex =index; 
     });
   }
+  // 动态页面
+  Dynamic _dynamic;
+  // 家人页面
+  Members _members;
+  // 家规页面
+  FamilyRule _familyRule;
+  _currentPage() {
+    switch (this._selectedIndex) {
+      case 0:
+        if(_dynamic==null) {
+          _dynamic =new Dynamic(tabController:this._tabController);
+        }
+        return _dynamic;
+      case 1:
+        if(_members==null) {
+          _members=new Members();
+        }
+        return _members;
+      case 2: 
+        if(_familyRule==null) {
+          _familyRule=new FamilyRule();
+        }
+        return _familyRule;
+      default:
+    }
+  }
   @override
   void initState() {
     super.initState();
@@ -51,32 +78,16 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
-        bottom: TabBar(
+        bottom: _selectedIndex==0? TabBar(
           controller: _tabController,
           tabs: <Widget>[
             new Tab(text: '动态'),
             new Tab(text: '家视频'),
             new Tab(text: '家图片'),
           ],
-        ),
+        ):null,
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: <Widget>[
-          Container(
-            alignment: Alignment.center,
-            child: Text('123', textScaleFactor: 5),
-          ),
-          Container(
-            alignment: Alignment.center,
-            child: Text('456', textScaleFactor: 5),
-          ),
-          Container(
-            alignment: Alignment.center,
-            child: Text('789', textScaleFactor: 5),
-          ),
-        ],
-      ),
+      body: _currentPage(),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',

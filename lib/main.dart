@@ -55,8 +55,8 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
           controller: _tabController,
           tabs: <Widget>[
             new Tab(text: '动态'),
-            new Tab(text: '视频'),
-            new Tab(text: '图片'),
+            new Tab(text: '家视频'),
+            new Tab(text: '家图片'),
           ],
         ),
       ),

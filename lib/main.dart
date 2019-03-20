@@ -25,9 +25,10 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
   int _counter = 0;
   int _selectedIndex= 0;
+  TabController _tabController;
   Future _incrementCounter() async{
     String url = '/novelApi';
     var response=await HttpUtil().get(url);
@@ -39,28 +40,42 @@ class _MyHomePageState extends State<MyHomePage> {
      _selectedIndex =index; 
     });
   }
-  TabController _headerTabController;
-  List tabs=['动态','图片','视频'];
+  @override
+  void initState() {
+    super.initState();
+    _tabController= new TabController(length: 3,vsync: this);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: <Widget>[
+            new Tab(text: '动态'),
+            new Tab(text: '视频'),
+            new Tab(text: '图片'),
           ],
         ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: <Widget>[
+          Container(
+            alignment: Alignment.center,
+            child: Text('123', textScaleFactor: 5),
+          ),
+          Container(
+            alignment: Alignment.center,
+            child: Text('456', textScaleFactor: 5),
+          ),
+          Container(
+            alignment: Alignment.center,
+            child: Text('789', textScaleFactor: 5),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,

@@ -4,36 +4,57 @@ class MyDrawer extends StatefulWidget {
   MyDrawerState createState() => new MyDrawerState();
 }
 class MyDrawerState extends State<MyDrawer> {
+  Widget userHeader =new UserAccountsDrawerHeader(
+    accountName: Text('fy', style:TextStyle(fontWeight:FontWeight.bold)),
+    accountEmail: null,
+    currentAccountPicture: new CircleAvatar(
+      backgroundImage: AssetImage('./lib/images/ic_launcher.ong'),
+    ),
+    decoration: BoxDecoration(
+      color: Colors.green
+    ),
+  );
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Column(
+      child: MediaQuery.removePadding(
+        context: context,
+        // DrawerHeader consumes top MediaQuery padding.
+        removeTop: true,
+        child: Column(
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top:38.0),
-            child: Row(
-              children: <Widget>[
-                Icon(Icons.people),
-                Text('zhuyan', style: TextStyle(fontWeight:FontWeight.bold),)
-              ],
-            ),
-          ),
           Expanded(
             child: ListView(
               children: <Widget>[
+                userHeader,
                 ListTile(
-                  leading: Icon(Icons.add),
-                  title: Text('addd'),
+                  trailing: Icon(Icons.message, color: Colors.black12, size: 22.0,),
+                  title: Text('message', textAlign: TextAlign.right,),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
                 ),
                 ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('management'),
+                  trailing: Icon(Icons.favorite, color: Colors.black12, size: 22.0,),
+                  title: Text('favorite', textAlign: TextAlign.right,),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  trailing: Icon(Icons.settings, color: Colors.black12, size: 22.0,),
+                  title: Text('settings', textAlign: TextAlign.right,),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
                 )
               ],
             ),
           )
         ],
       ),
+      )
+      
     );
   }
 }

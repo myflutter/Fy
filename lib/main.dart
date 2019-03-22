@@ -77,9 +77,16 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     return Scaffold(
       appBar: AppBar(
         leading: Builder(builder: (context) {
-          return IconButton(
-            icon: Icon(Icons.dashboard,color: Colors.white,),
-            onPressed: () {
+          return GestureDetector(
+            child: Container(
+              height: 10.0,
+              width: 10.0,
+              decoration: BoxDecoration(
+                
+              ),
+              child: Image.asset('./lib/images/ic_launcher.png',height: 16.0,width: 16.0),
+            ),
+            onTap: () {
               Scaffold.of(context).openDrawer();
             },
           );
@@ -89,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
         bottom: _selectedIndex==0? TabBar(
           controller: _tabController,
           tabs: <Widget>[
-            new Tab(text: '家动态'),
+            new Tab(text: '家分享'),
             new Tab(text: '家视频'),
             new Tab(text: '家图片'),
           ],

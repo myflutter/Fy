@@ -78,12 +78,8 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       appBar: AppBar(
         leading: Builder(builder: (context) {
           return GestureDetector(
-            child: Container(
-              height: 10.0,
-              width: 10.0,
-              decoration: BoxDecoration(
-                
-              ),
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
               child: Image.asset('./lib/images/ic_launcher.png',height: 16.0,width: 16.0),
             ),
             onTap: () {

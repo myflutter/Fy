@@ -1,12 +1,13 @@
 /**
  * 网络请求封装
  */
+import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-
 class HttpUtil {
+  BuildContext context;
   Dio dio;
   Options options;
-  HttpUtil() {
+  HttpUtil(this.context) {
     options= Options(
       baseUrl: 'https://www.apiopen.top',
       // 连接服务器超时时间
@@ -21,6 +22,7 @@ class HttpUtil {
     Response response;
     try {
       response= await dio.get(url, data:data, cancelToken:cancelToken);
+      Navigator.pushNamed(context, 'login');
       print('get 请求成功！response data: ${response.data}');
     } on DioError catch (e) {
       if (CancelToken.isCancel(e)) {
